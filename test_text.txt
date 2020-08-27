@@ -1,0 +1,15 @@
+Here's a sentence with a broken apostrophe.
+
+These are some “correct” quotation marks in English.
+
+These are some "incorrect" quotation marks in English.
+
+And some 'more' incorrect quotation marks in English.
+
+“And here” the correct marks in English are a the beginning and end of a “line”.
+
+"And here" the incorrect marks in English are a the beginning and end of a "line".
+
+Oh shit! Sometimes they can end with "punctuation!" Or even at the end of a "paragraph!"
+
+There are a lot more broken cases to enumerate and test…
