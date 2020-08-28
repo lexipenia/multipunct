@@ -14,6 +14,8 @@ Oh no! Sometimes they can end with "punctuation!" Or even at the end of a "parag
 
 There are a lot more broken cases to enumerate and test...
 
+And the—em-dash should be gone!
+
 Here's a bad ellipsis...
 
 And - this should be an en-dash.

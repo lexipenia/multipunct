@@ -1,3 +1,5 @@
+const { keys, values } = require("core-js/fn/array")
+
 // Set correct replacement symbols for each language, including both primary and secondary marks
 const languages = {
   "EN": {
@@ -8,27 +10,39 @@ const languages = {
   },
   "FR": {
     "correct_open": "«\xa0",    // include no-break spaces
-    "correct_close": "\xa0»"
+    "correct_close": "\xa0»",
+    "secondary_open": "“",
+    "secondary_close": "”"
   },
   "IT": {
     "correct_open": "«",
-    "correct_close": "»"
+    "correct_close": "»",
+    "secondary_open": "“",
+    "secondary_close": "”"
   },
   "ES": {
     "correct_open": "«",
-    "correct_close": "»"
+    "correct_close": "»",
+    "secondary_open": "“",
+    "secondary_close": "”"
   },
   "DE": {
     "correct_open": "„",
-    "correct_close": "“"
+    "correct_close": "“",
+    "secondary_open": ",",
+    "secondary_close": "‘"
   },
   "LT": {
     "correct_open": "„",
-    "correct_close": "“"
+    "correct_close": "“",
+    "secondary_open": ",",
+    "secondary_close": "‘"
   },
   "PL": {
     "correct_open": "„",
-    "correct_close": "”"
+    "correct_close": "”",
+    "secondary_open": "«",
+    "secondary_close": "»"
   }
 }
 
@@ -94,7 +108,7 @@ const findReplace = (text,regex_obj,correct_char) => {
 
     while ((match = re.exec(text)) != null){
 
-      let substring1 = text.substring(match.index,match.index+4)
+      let substring1 = text.substring(match.index,match.index+match[0].length+1)
       let substring2 = substring1.replace(mark,correct_char)
       text = text.replace(substring1,substring2)
 
@@ -105,15 +119,59 @@ const findReplace = (text,regex_obj,correct_char) => {
 
 }
 
+// Primary + secondary quotes: first we replace *all* quotes with the correct open/close symbols
+// Then we search for dual occurences of an open/close without the appropriate closing symbol between
+
+const generateSecondaryRegex = (repeated_char,break_char) => {
+
+  let regex_obj = {} 
+  
+  // find two repeated characters separated by any number of characters that aren't the break character
+  const match_expression = repeated_char + "[^" + break_char + "]+" + repeated_char
+
+  regex_obj[match_expression] = repeated_char
+  return regex_obj
+
+}
+
+const replaceSecondaryQuotes = (text,regex_obj,correct_char,open_close) => {
+
+  let re = new RegExp(Object.keys(regex_obj)[0],"gim")
+
+  while ((match = re.exec(text)) != null){
+
+    let substring1
+    let substring2
+
+    if (open_close == "open") {
+      substring1 = text.substring(match.index+1,match.index+match[0].length) // don't edit the first one
+      substring2 = substring1.replace(Object.values(regex_obj)[0],correct_char)
+    }
+    else if (open_close == "close") {
+      substring1 = text.substring(match.index,match.index+match[0].length-1) // don't edit the last one
+      substring2 = substring1.replace(Object.values(regex_obj)[0],correct_char)
+    }
+
+    text = text.replace(substring1,substring2)
+
+  }
+  
+  return text
+
+} 
+
+
 // Define regex and replacements for various punctuation characters + use our function to fix them
 const fixPunctuation = (text) => {
 
   const regex_obj_apostrophe = {"[a-z]\'[a-z]": "\'"}   // define regex to catch then desired replacement char
   const regex_obj_dash = {" - ": "-"}                   // TODO: fix for any space char
+  const regex_obj_emdash = {"—": "—"}   
   const regex_obj_ellipsis = {"\.\.\.": "\.\.\."}
 
   text = findReplace(text,regex_obj_apostrophe,"’")
   text = findReplace(text,regex_obj_dash,"–")
+  text = findReplace(text,regex_obj_emdash," – ")     // replace em-dash with spaced en-dash
   text = findReplace(text,regex_obj_ellipsis,"…")
 
   return text
@@ -125,12 +183,18 @@ const fixAll = (source,language) => {
 
   const correct_open = languages[language].correct_open
   const correct_close = languages[language].correct_close
+  const secondary_open = languages[language].secondary_open
+  const secondary_close = languages[language].secondary_close
 
   const open_quote_errors = generateRegex(opening_error_positions,correct_open)
   const close_quote_errors = generateRegex(closing_error_positions,correct_close)
+  const secondary_open_regex = generateSecondaryRegex(correct_open,correct_close)
+  const secondary_close_regex = generateSecondaryRegex(correct_close,correct_open)
 
   fixed_text = findReplace(source,open_quote_errors,correct_open)
   fixed_text = findReplace(fixed_text,close_quote_errors,correct_close)
+  fixed_text = replaceSecondaryQuotes(fixed_text,secondary_open_regex,secondary_open,"open")
+  fixed_text = replaceSecondaryQuotes(fixed_text,secondary_close_regex,secondary_close,"close")
   fixed_text = fixPunctuation(fixed_text)
 
   return fixed_text

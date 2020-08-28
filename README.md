@@ -12,6 +12,10 @@ For example, to run on the test text provided with French rules:
 
 `node multipunct.js test_text.txt FR`
 
+## `fixAll(source,language)`
+
+The main function applying the script to a source text in a specific language can be exported from the core module.
+
 ## Languages
 
 | Code | Language |

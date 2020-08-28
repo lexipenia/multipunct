@@ -13,7 +13,6 @@ console.log(core.fixAll(source,language))
 * Match more forms of broken ellipsis (..)
 * Match (…) ellipsis form and replace with […]
 * Add space before German ellipsis
-* Deal with primary and secondary inverted commas!
 * Handle errors in command line input
 * Find and correct date formats?
 
