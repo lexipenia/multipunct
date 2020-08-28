@@ -152,5 +152,6 @@ console.log(fixed_text)
 * Match (…) ellipsis form and replace with […]
 * Add space before German ellipsis
 * Deal with primary and secondary inverted commas!
+* Handle errors in command line input
 
 */
