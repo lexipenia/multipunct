@@ -15,15 +15,9 @@ For example, to run on the test text provided with French rules:
 ## Languages
 
 EN  English
-
 FR  French
-
 IT  Italian
-
 ES  Spanish
-
 DE  German
-
 PL  Polish
-
 LT  Lithuanian
