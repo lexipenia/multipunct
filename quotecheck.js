@@ -1,10 +1,10 @@
 // Load the text to test + declare var for fixed text
 const fs = require("fs")
-const source = fs.readFileSync("test_text.txt", "utf8")
+const source = fs.readFileSync(process.argv[2], "utf8")   // requires a text file in the folder with the program
 let fixed_text
 
 // Set the language to use when interpreting/editing the text + declare variabels for correct symbols
-const language = process.argv[2].toUpperCase()
+const language = process.argv[3].toUpperCase()
 let correct_open
 let correct_close
 
@@ -137,7 +137,6 @@ const fixPunctuation = (text) => {
   return text
 
 }
-
 
 // Carry out the replacements
 fixed_text = findReplace(source,open_quote_errors,correct_open)
