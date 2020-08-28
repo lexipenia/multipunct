@@ -1,6 +1,6 @@
 const core = require("./core.js")
 
-// Load the text to test + declare var for fixed text
+// Load a text to test
 const fs = require("fs")
 const source = fs.readFileSync(process.argv[2], "utf8")   // requires a text file in the folder with the program
 const language = process.argv[3].toUpperCase()
