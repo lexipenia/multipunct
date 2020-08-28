@@ -1,4 +1,4 @@
-Here's a sentence with a broken apostrophe.
+Here's a sentence with a broken apostrophe... and a broken ellipsis.
 
 These are some “correct” quotation marks in English.
 
@@ -10,6 +10,14 @@ And some 'more' incorrect quotation marks in English.
 
 "And here" the incorrect marks in English are a the beginning and end of a "line".
 
-Oh shit! Sometimes they can end with "punctuation!" Or even at the end of a "paragraph!"
+Oh no! Sometimes they can end with "punctuation!" Or even at the end of a "paragraph!"
 
-There are a lot more broken cases to enumerate and test…
+There are a lot more broken cases to enumerate and test...
+
+Here's a bad ellipsis...
+
+And - this should be an en-dash.
+
+Here's something « correct in French » - but not in English or Italian.
+
+Here's something «incorrect in French» that needs replacing in English but not Italian.
