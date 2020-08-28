@@ -18,6 +18,8 @@ And the—em-dash should be gone!
 
 Here's a bad ellipsis...
 
+And some (…) awful ellipsis brackets.
+
 And - this should be an en-dash.
 
 Here's something « correct in French » - but not in English or Italian.

@@ -12,8 +12,6 @@ console.log(core.fixAll(source,language))
 * Match all space characters in errors
 * Match more forms of broken ellipsis (..)
 * Match (…) ellipsis form and replace with […]
-* Add space before German ellipsis
-* Handle errors in command line input
-* Find and correct date formats?
+* Add space before German ellipsis?
 
 */
