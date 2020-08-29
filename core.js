@@ -1,5 +1,3 @@
-const { keys, values } = require("core-js/fn/array")
-
 // Set correct replacement symbols for each language, including both primary and secondary marks
 const languages = {
   "EN": {
@@ -28,19 +26,19 @@ const languages = {
   },
   "DE": {
     "correct_open": "„",
-    "correct_close": "“",
-    "secondary_open": ",",
-    "secondary_close": "‘"
+    "correct_close": "“",     // use non-DE left double open; otherwise font won't match
+    "secondary_open": "‚",
+    "secondary_close": "‘"    // use non-DE left single open; otherwise font won't match
   },
   "LT": {
     "correct_open": "„",
-    "correct_close": "“",
-    "secondary_open": ",",
-    "secondary_close": "‘"
+    "correct_close": "“",     // use non-DE left double open; otherwise font won't match
+    "secondary_open": "‚",
+    "secondary_close": "‘"    // use non-DE left single open; otherwise font won't match
   },
   "PL": {
     "correct_open": "„",
-    "correct_close": "”",
+    "correct_close": "“",     // use non-DE left double open; otherwise font won't match
     "secondary_open": "«",
     "secondary_close": "»"
   }
@@ -54,12 +52,18 @@ const all_marks = [
   "”",                  // smart close double
   "‘",                  // smart open single
   "’",                  // smart close single
+  "„",                  // German open double
+  "‟",                  // German close double  // NB. not double left quotation mark 
+  "‚",                  // German open single   // NB. not the same as comma
+  "‛",                  // German close single  // NB. not single left quotation mark
   "«",                  // guillemets open no space
   "»",                  // guillemets close no space
   "« ",                 // guillemets open space        // TODO: make this work for any space char
   " »",                 // guillemets close space
-  //",",                // German open single           // Remove this, otherwise it matches commas
-  "„"                   // German open double
+  "‹",                  // guillemets single open no space
+  "›",                  // guillemets single close no space
+  "‹ ",                 // guillemets single open space
+  " ›"                  // guillemets single close space
 ]
 
 // Define the possible opening and closing positions for each quotation mark sign. Used to generate the regex.

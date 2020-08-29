@@ -28,4 +28,8 @@ Here's something «incorrect in French» that needs replacing in English but not
 
 "Testing some "secondary" quotation marks."
 
+Here they are the ”wrong way round.“
+
+„Den Klang der Schlagstockschläge kann man nie mehr vergessen‟ <-- this last symbol is wrong!
+
 And some "more "secondary," marks with punctuation in."
