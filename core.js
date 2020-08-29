@@ -146,17 +146,15 @@ const replaceSecondaryQuotes = (text,regex_obj,correct_char,open_close) => {
   while ((match = re.exec(text)) != null){
 
     let substring1
-    let substring2
 
     if (open_close == "open") {
       substring1 = text.substring(match.index+1,match.index+match[0].length) // don't edit the first one
-      substring2 = substring1.replace((RegExp(Object.values(regex_obj)[0],"gim")),correct_char)
     }
     else if (open_close == "close") {
       substring1 = text.substring(match.index,match.index+match[0].length-1) // don't edit the second one
-      substring2 = substring1.replace((RegExp(Object.values(regex_obj)[0],"gim")),correct_char)
     }
 
+    let substring2 = substring1.replace((RegExp(Object.values(regex_obj)[0],"gim")),correct_char)
     text = text.replace(substring1,substring2)
 
   }
@@ -168,7 +166,7 @@ const replaceSecondaryQuotes = (text,regex_obj,correct_char,open_close) => {
 // Define regex and replacements for various punctuation characters + use our function to fix them
 const fixPunctuation = (text) => {
 
-  const regex_obj_apostrophe = {"[a-z]\'[a-z]": "\'"}         // regex to catch then desired replacement chars in situ
+  const regex_obj_apostrophe = {"[a-z]\'[a-z]": "\'"}         // regex to catch the desired replacement chars in situ
   const regex_obj_dash = {"\\s-\\s": "-"}                     // also define specific replacement characters as regex
   const regex_obj_emdash = {"—": "—"}                         // because they get converted in findReplace()
   const regex_obj_ellipsis = {"\\.{3}": "\\.{3}"}             // remember to escape the escape characters!
