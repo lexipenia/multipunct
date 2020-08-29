@@ -18,8 +18,6 @@ And the—em-dash should be gone!
 
 And - this should be an en-dash.
 
-Here's something « correct in French » - but not in English or Italian.
-
 Here's something «incorrect in French» that needs replacing in English but not Italian.
 
 "Testing some "secondary" quotation marks."
@@ -35,3 +33,5 @@ And some "more "secondary," marks with punctuation in."
 And some (…) awful ellipsis brackets.
 
 Here's a bad ellipsis...
+
+Here's something « correct in French »—but not in English or Italian.

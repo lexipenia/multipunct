@@ -6,10 +6,3 @@ const source = fs.readFileSync(process.argv[2], "utf8")   // requires a text fil
 const language = process.argv[3].toUpperCase()
 
 console.log(core.fixAll(source,language))
-
-/* STILL TODO:
-
-* Match all space characters in errors
-* Match more forms of broken ellipsis (..)
-
-*/

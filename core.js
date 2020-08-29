@@ -1,4 +1,6 @@
 // Set correct replacement symbols for each language, including both primary and secondary marks
+// These symbols are strings fed into the String.replace() method; they are not regex
+// All matching patterns used (for both "context" and "specific" matches) are converted to regex
 const languages = {
   "EN": {
     "correct_open": "“",
@@ -58,12 +60,12 @@ const all_marks = [
   "‛",                  // German close single  // NB. not single left quotation mark
   "«",                  // guillemets open no space
   "»",                  // guillemets close no space
-  "« ",                 // guillemets open space        // TODO: make this work for any space char
-  " »",                 // guillemets close space
+  "«\\s",               // guillemets open space (escape the esacape char for converting to regex)
+  "\\s»",               // guillemets close space
   "‹",                  // guillemets single open no space
   "›",                  // guillemets single close no space
-  "‹ ",                 // guillemets single open space
-  " ›"                  // guillemets single close space
+  "‹\\s",               // guillemets single open space
+  "\\s›"                // guillemets single close space
 ]
 
 // Define the possible opening and closing positions for each quotation mark sign. Used to generate the regex.
@@ -113,7 +115,7 @@ const findReplace = (text,regex_obj,correct_char) => {
     while ((match = re.exec(text)) != null){
 
       let substring1 = text.substring(match.index,match.index+match[0].length)
-      let substring2 = substring1.replace(mark,correct_char)
+      let substring2 = substring1.replace((RegExp(mark,"gim")),correct_char)      // convert "mark" to regex too
       text = text.replace(substring1,substring2)
 
     }
@@ -148,11 +150,11 @@ const replaceSecondaryQuotes = (text,regex_obj,correct_char,open_close) => {
 
     if (open_close == "open") {
       substring1 = text.substring(match.index+1,match.index+match[0].length) // don't edit the first one
-      substring2 = substring1.replace(Object.values(regex_obj)[0],correct_char)
+      substring2 = substring1.replace((RegExp(Object.values(regex_obj)[0],"gim")),correct_char)
     }
     else if (open_close == "close") {
       substring1 = text.substring(match.index,match.index+match[0].length-1) // don't edit the second one
-      substring2 = substring1.replace(Object.values(regex_obj)[0],correct_char)
+      substring2 = substring1.replace((RegExp(Object.values(regex_obj)[0],"gim")),correct_char)
     }
 
     text = text.replace(substring1,substring2)
@@ -163,19 +165,18 @@ const replaceSecondaryQuotes = (text,regex_obj,correct_char,open_close) => {
 
 } 
 
-
 // Define regex and replacements for various punctuation characters + use our function to fix them
 const fixPunctuation = (text) => {
 
-  const regex_obj_apostrophe = {"[a-z]\'[a-z]": "\'"}   // define regex to catch then desired replacement char
-  const regex_obj_dash = {" - ": "-"}                   // TODO: fix for any space char
-  const regex_obj_emdash = {"—": "—"}   
-  const regex_obj_ellipsis = {"\\.{3}": "..."}                // remember to esape the escape characters for when
-  const regex_obj_ellipsis_brackets = {"\\(…\\)": "(…)"}      // the strings are converted to regex!
+  const regex_obj_apostrophe = {"[a-z]\'[a-z]": "\'"}         // regex to catch then desired replacement chars in situ
+  const regex_obj_dash = {"\\s-\\s": "-"}                     // also define specific replacement characters as regex
+  const regex_obj_emdash = {"—": "—"}                         // because they get converted in findReplace()
+  const regex_obj_ellipsis = {"\\.{3}": "\\.{3}"}             // remember to escape the escape characters!
+  const regex_obj_ellipsis_brackets = {"\\(…\\)": "\\(…\\)"}      
 
-  text = findReplace(text,regex_obj_apostrophe,"’")
-  text = findReplace(text,regex_obj_dash,"–")
-  text = findReplace(text,regex_obj_emdash," – ")     // replace em-dash with spaced en-dash
+  text = findReplace(text,regex_obj_apostrophe,"’")           // define replacement chars as string, not as regex
+  text = findReplace(text,regex_obj_dash,"–")                 // replace spaced dashes with spaced en-dash
+  text = findReplace(text,regex_obj_emdash," – ")             // replace unspaced em-dash with spaced en-dash
   text = findReplace(text,regex_obj_ellipsis,"…")
   text = findReplace(text,regex_obj_ellipsis_brackets,"[…]")
 
