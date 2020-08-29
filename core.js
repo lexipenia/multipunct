@@ -40,7 +40,7 @@ const languages = {
   },
   "PL": {
     "correct_open": "„",
-    "correct_close": "”",     // use non-DE left double open; otherwise font won't match
+    "correct_close": "”",
     "secondary_open": "«",
     "secondary_close": "»"
   }
