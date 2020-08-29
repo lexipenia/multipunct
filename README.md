@@ -12,9 +12,9 @@ For example, to run on the test text provided with French rules:
 
 `node multipunct.js test_text.txt FR`
 
-## Exporting the main function
+## The `fixAll` function
 
-The main function `fixAll(source,language)`, which corrects a source text in a specific language, can be exported from the core module.
+The main function `fixAll(source,language)`, which corrects a source text in a specific language, can be imported from the core module.
 
 ## Languages
 

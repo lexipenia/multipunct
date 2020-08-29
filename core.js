@@ -112,7 +112,7 @@ const findReplace = (text,regex_obj,correct_char) => {
 
     while ((match = re.exec(text)) != null){
 
-      let substring1 = text.substring(match.index,match.index+match[0].length+1)
+      let substring1 = text.substring(match.index,match.index+match[0].length)
       let substring2 = substring1.replace(mark,correct_char)
       text = text.replace(substring1,substring2)
 
@@ -125,7 +125,6 @@ const findReplace = (text,regex_obj,correct_char) => {
 
 // Primary + secondary quotes: first we replace *all* quotes with the correct open/close symbols
 // Then we search for dual occurences of an open/close without the appropriate closing symbol between
-
 const generateSecondaryRegex = (repeated_char,break_char) => {
 
   let regex_obj = {} 
@@ -152,7 +151,7 @@ const replaceSecondaryQuotes = (text,regex_obj,correct_char,open_close) => {
       substring2 = substring1.replace(Object.values(regex_obj)[0],correct_char)
     }
     else if (open_close == "close") {
-      substring1 = text.substring(match.index,match.index+match[0].length-1) // don't edit the last one
+      substring1 = text.substring(match.index,match.index+match[0].length-1) // don't edit the second one
       substring2 = substring1.replace(Object.values(regex_obj)[0],correct_char)
     }
 
@@ -171,12 +170,14 @@ const fixPunctuation = (text) => {
   const regex_obj_apostrophe = {"[a-z]\'[a-z]": "\'"}   // define regex to catch then desired replacement char
   const regex_obj_dash = {" - ": "-"}                   // TODO: fix for any space char
   const regex_obj_emdash = {"—": "—"}   
-  const regex_obj_ellipsis = {"\.\.\.": "\.\.\."}
+  const regex_obj_ellipsis = {"\\.{3}": "..."}                // remember to esape the escape characters for when
+  const regex_obj_ellipsis_brackets = {"\\(…\\)": "(…)"}      // the strings are converted to regex!
 
   text = findReplace(text,regex_obj_apostrophe,"’")
   text = findReplace(text,regex_obj_dash,"–")
   text = findReplace(text,regex_obj_emdash," – ")     // replace em-dash with spaced en-dash
   text = findReplace(text,regex_obj_ellipsis,"…")
+  text = findReplace(text,regex_obj_ellipsis_brackets,"[…]")
 
   return text
 

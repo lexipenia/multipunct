@@ -16,10 +16,6 @@ There are a lot more broken cases to enumerate and test...
 
 And the—em-dash should be gone!
 
-Here's a bad ellipsis...
-
-And some (…) awful ellipsis brackets.
-
 And - this should be an en-dash.
 
 Here's something « correct in French » - but not in English or Italian.
@@ -30,6 +26,12 @@ Here's something «incorrect in French» that needs replacing in English but not
 
 Here they are the ”wrong way round.“
 
-„Den Klang der Schlagstockschläge kann man nie mehr vergessen‟ <-- this last symbol is wrong!
+„Den Klang der Schlagstockschläge kann man nie mehr vergessen‟ <-- this last symbol is wrong! (incorrect DE close)
 
 And some "more "secondary," marks with punctuation in."
+
+"¿What's that?" the Spaniard asked? "¡It's nothing!" his Catalan colleague exclaimed.
+
+And some (…) awful ellipsis brackets.
+
+Here's a bad ellipsis...
