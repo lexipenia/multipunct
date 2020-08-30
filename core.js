@@ -29,13 +29,13 @@ const languages = {
   "DE": {
     "correct_open": "„",
     "correct_close": "“",     // use non-DE left double open; otherwise font won't match
-    "secondary_open": "‚",
+    "secondary_open": "‚",    // NB. not the same as comma
     "secondary_close": "‘"    // use non-DE left single open; otherwise font won't match
   },
   "LT": {
     "correct_open": "„",
     "correct_close": "“",     // use non-DE left double open; otherwise font won't match
-    "secondary_open": "‚",
+    "secondary_open": "‚",    // NB. not the same as comma
     "secondary_close": "‘"    // use non-DE left single open; otherwise font won't match
   },
   "PL": {
